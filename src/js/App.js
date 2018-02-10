@@ -10,20 +10,34 @@ class App extends React.Component {
       allQuestions: data.allQuestions,
       currentQuestion: data.allQuestions[0],
       progress: 0,
-      allAnswers: []
+      allAnswers: [],
+      loadNewQuestion: false
     };
   }
 
   onSelectAnswer = (answer) => {
-    console.log('Answer selected', answer);
+    // console.log('Answer selected', answer);
+    const { allAnswers } = this.state;
+
+    this.setState({
+      allAnswers: [...allAnswers, answer]
+    }, this.goToNextQuestion());
+  }
+
+  goToNextQuestion = () => {
+    console.log('go to next question after the status is updated');
+
+    this.setState({
+      loadNewQuestion: true
+    })
   }
 
   render() {
-    const { currentQuestion } = this.state;
+    const { currentQuestion, loadNewQuestion } = this.state;
     return (
       <div>
         {/* Header - start */}
-        <header>
+        <header className={`fade-out ${loadNewQuestion ? 'fade-out-active' : ''}`}>
           <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/images/plane.svg" alt="Plane" />
         </header>
         {/* Header - end */}
@@ -44,6 +58,7 @@ class App extends React.Component {
           <Question
             currentQuestion={currentQuestion}
             onSelectAnswer={this.onSelectAnswer}
+            loadNewQuestion={loadNewQuestion}
           />
 
           {/* Results - start */}
