@@ -180,7 +180,7 @@ header {
             color: $darkTextColor;
         }
     }
-    &.is-selected {
+    &.is-highlighted {
         animation-name: highlight;
         animation-duration: 500ms;
     }
