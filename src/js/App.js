@@ -1,15 +1,25 @@
 import React from 'react';
+import data from './data/Data';
+import Question from './Question';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      allQuestions: data.allQuestions,
+      currentQuestion: data.allQuestions[0],
+      progress: 0,
+      allAnswers: []
+    };
   }
   render() {
+    const { currentQuestion } = this.state;
     return (
       <div>
         {/* Header - start */}
         <header>
-          <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/images/plane.svg" />
+          <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/images/plane.svg" alt="Plane" />
         </header>
         {/* Header - end */}
 
@@ -26,27 +36,7 @@ class App extends React.Component {
           </div>
           {/* Progress - end */}
 
-          {/* Question - start */}
-          <div className="question">
-            <h1>What is the best city in the world?</h1>
-
-            {/* Choices - start */}
-            <div className="choices">
-              {/* Buttons - start */}
-              <button className="btn btn-huge is-selected">
-                <span className="letter">A</span> Melbourne
-              </button>
-              <button className="btn btn-huge">
-                <span className="letter">B</span> New York
-              </button>
-              <button className="btn btn-huge">
-                <span className="letter">C</span> London
-              </button>
-              {/* Buttons - end */}
-            </div>
-            {/* Choices - end */}
-          </div>
-          {/* Question - end */}
+          <Question currentQuestion={currentQuestion} />
 
           {/* Results - start */}
           <div className="results">
@@ -74,10 +64,16 @@ class App extends React.Component {
         {/* Navigation - start */}
         <div className="navigation text-center is-active">
           <button className="arrow">
-            <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/fonts/navigation-left-arrow.svg" />
+            <img
+              src="https://ihatetomatoes.net/react-tutorials/abc-quiz/fonts/navigation-left-arrow.svg"
+              alt="left-arrow"
+            />
           </button>
           <button disabled className="arrow is-disabled">
-            <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/fonts/navigation-right-arrow.svg" />
+            <img
+              src="https://ihatetomatoes.net/react-tutorials/abc-quiz/fonts/navigation-right-arrow.svg"
+              alt="right-arrow"
+            />
           </button>
         </div>
         {/* Navigation - end */}
