@@ -23,11 +23,21 @@ class App extends React.Component {
 
   onSelectAnswer = (answer) => {
     // console.log('Answer selected', answer);
-    const { allAnswers } = this.state;
+    const { allAnswers, progress } = this.state;
+    const currentAnswer = allAnswers[progress];
 
-    this.setState({
-      allAnswers: [...allAnswers, answer]
-    }, this.goToNextQuestion());
+    if (currentAnswer) {
+      // replace it
+      allAnswers[progress] = answer;
+      this.setState({
+        allAnswers
+      }, this.goToNextQuestion());
+    } else {
+      // add answer to the array
+      this.setState({
+        allAnswers: [...allAnswers, answer]
+      }, this.goToNextQuestion());
+    }
   }
 
   goToNextQuestion = () => {
@@ -58,20 +68,27 @@ class App extends React.Component {
   }
 
   goToPreviousQuestion = () => {
-    console.log('go to previous question after the status is updated');
+    // console.log('go to previous question after the status is updated');
 
-    const { progress, allQuestions } = this.state;
+    const { progress, allQuestions, showResults } = this.state;
 
     this.setState({
       loadNewQuestion: true
     })
 
     setTimeout(() => {
-      this.setState({
+
+      (progress > 0 && !showResults) && this.setState({
         progress: progress - 1,
         loadNewQuestion: false,
         currentQuestion: allQuestions[progress - 1]
       })
+
+      showResults && this.setState({
+        showResults: false,
+        loadNewQuestion: false
+      })
+
     }, 300)
   }
 
