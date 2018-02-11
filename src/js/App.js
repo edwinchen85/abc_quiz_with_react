@@ -18,7 +18,8 @@ class App extends React.Component {
       loadNewQuestion: false,
       showResults: false,
       loadingResults: false,
-      correctAnswers: null
+      correctAnswers: null,
+      resultsLoaded: false
     };
   }
 
@@ -130,6 +131,17 @@ class App extends React.Component {
     }, 1000);
   }
 
+  onRestart = () => {
+    this.setState({
+      currentQuestion: data.allQuestions[0],
+      progress: 0,
+      allAnswers: [],
+      showResults: false,
+      correctAnswers: null,
+      resultsLoaded: false
+    });
+  }
+
   render() {
     const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults, correctAnswers, resultsLoaded, progress } = this.state;
 
@@ -160,7 +172,9 @@ class App extends React.Component {
               allQuestions={allQuestions}
               allAnswers={allAnswers}
               onLoadResults={this.onLoadResults}
-              correctAnswers={correctAnswers} />
+              correctAnswers={correctAnswers}
+              resultsLoaded={resultsLoaded}
+              onRestart={this.onRestart} />
           }
         </div>
         {/* Content - end */}
