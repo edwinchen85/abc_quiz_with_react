@@ -2,6 +2,7 @@ import React from 'react';
 import data from './data/Data';
 import Question from './Question';
 import Results from './Results';
+import Progress from './Progress';
 
 class App extends React.Component {
   constructor(props) {
@@ -104,16 +105,7 @@ class App extends React.Component {
 
         {/* Content - start */}
         <div className="content">
-          {/* Progress - start */}
-          <div className="progress-container">
-            <div className="progress-label">1 of 5 answered</div>
-            <div className="progress">
-              <div className="progress-bar" style={{ width: `20%` }}>
-                <span className="sr-only">20% Complete</span>
-              </div>
-            </div>
-          </div>
-          {/* Progress - end */}
+          <Progress total={allQuestions.length} progress={allAnswers.length} />
 
           {
             !showResults ? <Question
