@@ -3,6 +3,7 @@ import data from './data/Data';
 import Question from './Question';
 import Results from './Results';
 import Progress from './Progress';
+import Arrow from './Arrow';
 
 class App extends React.Component {
   constructor(props) {
@@ -94,7 +95,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults, correctAnswers, resultsLoaded } = this.state;
+    const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults, correctAnswers, resultsLoaded, progress } = this.state;
+
+    const navIsActive = allAnswers.length > 0;
+
     return (
       <div className={`${loadingResults ? 'is-loading-results' : ''} ${resultsLoaded ? 'is-showing-results' : 'no-results-loaded'}`}>
         {/* Header - start */}
@@ -122,19 +126,9 @@ class App extends React.Component {
         {/* Content - end */}
 
         {/* Navigation - start */}
-        <div className="navigation text-center is-active">
-          <button className="arrow">
-            <img
-              src="https://ihatetomatoes.net/react-tutorials/abc-quiz/fonts/navigation-left-arrow.svg"
-              alt="left-arrow"
-            />
-          </button>
-          <button disabled className="arrow is-disabled">
-            <img
-              src="https://ihatetomatoes.net/react-tutorials/abc-quiz/fonts/navigation-right-arrow.svg"
-              alt="right-arrow"
-            />
-          </button>
+        <div className={`navigation text-center ${navIsActive ? 'is-active' : ''}`}>
+          <Arrow direction="left" progress={progress} allAnswers={allAnswers} />
+          <Arrow direction="right" progress={progress} allAnswers={allAnswers} />
         </div>
         {/* Navigation - end */}
       </div>
