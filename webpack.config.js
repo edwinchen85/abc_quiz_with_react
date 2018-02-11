@@ -23,7 +23,7 @@ const configDev = {
 
 const configProd = {
   app: './src/index.js',
-  publicPath: '/',
+  publicPath: '',
   css: ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: ['css-loader', 'sass-loader']
@@ -43,7 +43,7 @@ module.exports = env => {
       bootstrap: bootstrapConfig
     },
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'docs'),
       filename: '[name].bundle.js',
       publicPath: config.publicPath
     },
@@ -78,12 +78,12 @@ module.exports = env => {
       ]
     },
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: path.join(__dirname, 'docs'),
       stats: 'errors-only',
       port: 8081,
       hot: true
     },
-    plugins: (function() {
+    plugins: (function () {
       const plugins = [];
       plugins.push(
         new HtmlWebpackPlugin({
