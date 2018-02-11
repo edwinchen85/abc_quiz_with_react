@@ -57,6 +57,24 @@ class App extends React.Component {
 
   }
 
+  goToPreviousQuestion = () => {
+    console.log('go to previous question after the status is updated');
+
+    const { progress, allQuestions } = this.state;
+
+    this.setState({
+      loadNewQuestion: true
+    })
+
+    setTimeout(() => {
+      this.setState({
+        progress: progress - 1,
+        loadNewQuestion: false,
+        currentQuestion: allQuestions[progress - 1]
+      })
+    }, 300)
+  }
+
   onLoadResults = () => {
     // console.log('Loading results!');
 
@@ -116,6 +134,7 @@ class App extends React.Component {
               currentQuestion={currentQuestion}
               onSelectAnswer={this.onSelectAnswer}
               loadNewQuestion={loadNewQuestion}
+              allAnswers={allAnswers}
             /> : <Results loadNewQuestion={loadNewQuestion}
               allQuestions={allQuestions}
               allAnswers={allAnswers}
@@ -127,8 +146,8 @@ class App extends React.Component {
 
         {/* Navigation - start */}
         <div className={`navigation text-center ${navIsActive ? 'is-active' : ''}`}>
-          <Arrow direction="left" progress={progress} allAnswers={allAnswers} />
-          <Arrow direction="right" progress={progress} allAnswers={allAnswers} />
+          <Arrow direction="left" progress={progress} allAnswers={allAnswers} goToPreviousQuestion={this.goToPreviousQuestion} />
+          <Arrow direction="right" progress={progress} allAnswers={allAnswers} goToNextQuestion={this.goToNextQuestion} />
         </div>
         {/* Navigation - end */}
       </div>
