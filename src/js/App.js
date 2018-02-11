@@ -13,7 +13,8 @@ class App extends React.Component {
       progress: 0,
       allAnswers: [],
       loadNewQuestion: false,
-      showResults: false
+      showResults: false,
+      loadingResults: false
     };
   }
 
@@ -54,13 +55,46 @@ class App extends React.Component {
   }
 
   onLoadResults = () => {
-    console.log('Loading results!');
+    // console.log('Loading results!');
+
+    this.setState({
+      loadingResults: true
+    })
+
+    // correct answers url https://api.myjson.com/bins/zgpjb
+
+    fetch('https://api.myjson.com/bins/zgpjb')
+      .then(response => response.json())
+      .then(parsedJSON => {
+        console.log(parsedJSON.correctAnswers);
+        const correctAnswers = parsedJSON.correctAnswers;
+
+        this.setState({
+          correctAnswers,
+          loadingResults: false,
+          resultsLoaded: true
+        })
+      })
+      .catch(error => {
+        console.log('fetching failed', error);
+        this.setState({
+          loadingResults: false,
+          resultsLoaded: true
+        })
+      })
+
+    // Fake delay
+    setTimeout(() => {
+      this.setState({
+        loadingResults: false
+      })
+    }, 1000);
   }
 
   render() {
-    const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers } = this.state;
+    const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults } = this.state;
     return (
-      <div>
+      <div className={`${loadingResults ? 'is-loading-results' : ''}`}>
         {/* Header - start */}
         <header className={`fade-out ${loadNewQuestion ? 'fade-out-active' : ''}`}>
           <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/images/plane.svg" alt="Plane" />
