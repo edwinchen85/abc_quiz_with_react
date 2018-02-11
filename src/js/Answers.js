@@ -2,10 +2,12 @@ import React, { PropTypes } from 'react';
 
 const Answers = ({ allQuestions, allAnswers }) => (
   <ol>
-    <li>
-      What is the best city in the world? <br />
-      <strong>Melbourne</strong>
-    </li>
+    {allQuestions.map((question, index) => (
+      <li key={question.question}>
+        {question.question} <br />
+        <strong>{allAnswers[index]}</strong>
+      </li>
+    ))}
   </ol>
 );
 

@@ -53,6 +53,10 @@ class App extends React.Component {
 
   }
 
+  onLoadResults = () => {
+    console.log('Loading results!');
+  }
+
   render() {
     const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers } = this.state;
     return (
@@ -83,7 +87,8 @@ class App extends React.Component {
               loadNewQuestion={loadNewQuestion}
             /> : <Results loadNewQuestion={loadNewQuestion}
               allQuestions={allQuestions}
-              allAnswers={allAnswers} />
+              allAnswers={allAnswers}
+              onLoadResults={this.onLoadResults} />
           }
         </div>
         {/* Content - end */}
