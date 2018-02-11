@@ -167,8 +167,8 @@ class App extends React.Component {
 
         {/* Navigation - start */}
         <div className={`navigation text-center ${navIsActive ? 'is-active' : ''}`}>
-          <Arrow direction="left" progress={progress} allAnswers={allAnswers} goToPreviousQuestion={this.goToPreviousQuestion} />
-          <Arrow direction="right" progress={progress} allAnswers={allAnswers} goToNextQuestion={this.goToNextQuestion} />
+          <Arrow direction="left" progress={progress} allAnswers={allAnswers} goToPreviousQuestion={this.goToPreviousQuestion} showResults={showResults} />
+          <Arrow direction="right" progress={progress} allAnswers={allAnswers} goToNextQuestion={this.goToNextQuestion} showResults={showResults} />
         </div>
         {/* Navigation - end */}
       </div>
