@@ -14,7 +14,8 @@ class App extends React.Component {
       allAnswers: [],
       loadNewQuestion: false,
       showResults: false,
-      loadingResults: false
+      loadingResults: false,
+      correctAnswers: null
     };
   }
 
@@ -66,7 +67,7 @@ class App extends React.Component {
     fetch('https://api.myjson.com/bins/zgpjb')
       .then(response => response.json())
       .then(parsedJSON => {
-        console.log(parsedJSON.correctAnswers);
+        // console.log(parsedJSON.correctAnswers);
         const correctAnswers = parsedJSON.correctAnswers;
 
         this.setState({
@@ -92,9 +93,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults } = this.state;
+    const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults, correctAnswers, resultsLoaded } = this.state;
     return (
-      <div className={`${loadingResults ? 'is-loading-results' : ''}`}>
+      <div className={`${loadingResults ? 'is-loading-results' : ''} ${resultsLoaded ? 'is-showing-results' : 'no-results-loaded'}`}>
         {/* Header - start */}
         <header className={`fade-out ${loadNewQuestion ? 'fade-out-active' : ''}`}>
           <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/images/plane.svg" alt="Plane" />
@@ -122,7 +123,8 @@ class App extends React.Component {
             /> : <Results loadNewQuestion={loadNewQuestion}
               allQuestions={allQuestions}
               allAnswers={allAnswers}
-              onLoadResults={this.onLoadResults} />
+              onLoadResults={this.onLoadResults}
+              correctAnswers={correctAnswers} />
           }
         </div>
         {/* Content - end */}
