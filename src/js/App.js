@@ -4,6 +4,7 @@ import Question from './Question';
 import Results from './Results';
 import Progress from './Progress';
 import Arrow from './Arrow';
+import defaultImage from '../images/truck.svg';
 
 class App extends React.Component {
   constructor(props) {
@@ -132,13 +133,16 @@ class App extends React.Component {
   render() {
     const { currentQuestion, loadNewQuestion, showResults, allQuestions, allAnswers, loadingResults, correctAnswers, resultsLoaded, progress } = this.state;
 
+    const { image } = currentQuestion;
+    const headerImage = !showResults ? image : defaultImage;
+
     const navIsActive = allAnswers.length > 0;
 
     return (
       <div className={`${loadingResults ? 'is-loading-results' : ''} ${resultsLoaded ? 'is-showing-results' : 'no-results-loaded'}`}>
         {/* Header - start */}
         <header className={`fade-out ${loadNewQuestion ? 'fade-out-active' : ''}`}>
-          <img src="https://ihatetomatoes.net/react-tutorials/abc-quiz/images/plane.svg" alt="Plane" />
+          <img src={headerImage} alt="Plane" />
         </header>
         {/* Header - end */}
 
