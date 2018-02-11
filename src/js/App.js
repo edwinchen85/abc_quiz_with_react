@@ -11,7 +11,8 @@ class App extends React.Component {
       currentQuestion: data.allQuestions[0],
       progress: 0,
       allAnswers: [],
-      loadNewQuestion: false
+      loadNewQuestion: false,
+      showResults: false
     };
   }
 
@@ -25,15 +26,34 @@ class App extends React.Component {
   }
 
   goToNextQuestion = () => {
-    console.log('go to next question after the status is updated');
+    // console.log('go to next question after the status is updated');
+
+    const { progress, allQuestions } = this.state;
 
     this.setState({
       loadNewQuestion: true
     })
+
+    // we have the question faded out
+    setTimeout(() => {
+      if (progress < allQuestions.length - 1) {
+        this.setState({
+          progress: progress + 1,
+          currentQuestion: allQuestions[progress + 1],
+          loadNewQuestion: false
+        })
+      } else {
+        this.setState({
+          loadNewQuestion: false,
+          showResults: true
+        })
+      }
+    }, 300);
+
   }
 
   render() {
-    const { currentQuestion, loadNewQuestion } = this.state;
+    const { currentQuestion, loadNewQuestion, showResults } = this.state;
     return (
       <div>
         {/* Header - start */}
@@ -55,11 +75,13 @@ class App extends React.Component {
           </div>
           {/* Progress - end */}
 
-          <Question
-            currentQuestion={currentQuestion}
-            onSelectAnswer={this.onSelectAnswer}
-            loadNewQuestion={loadNewQuestion}
-          />
+          {
+            !showResults && <Question
+              currentQuestion={currentQuestion}
+              onSelectAnswer={this.onSelectAnswer}
+              loadNewQuestion={loadNewQuestion}
+            />
+          }
 
           {/* Results - start */}
           <div className="results">
